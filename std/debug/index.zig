@@ -8,6 +8,8 @@ const DW = std.dwarf;
 const ArrayList = std.ArrayList;
 const builtin = @import("builtin");
 
+const execinfo = @cImport(@cInclude("execinfo.h"));
+
 pub const FailingAllocator = @import("failing_allocator.zig").FailingAllocator;
 
 /// Tries to write to stderr, unbuffered, and ignores any error returned.
@@ -253,6 +255,16 @@ pub fn openSelfDebugInfo(allocator: &mem.Allocator) !&ElfStackTrace {
             return error.TodoSupportCoffDebugInfo;
         },
         builtin.ObjectFormat.macho => {
+            var callstack: [128]?&c_void = undefined;
+            const callstackptr: ?&?&c_void = &callstack[0];
+
+            const frames: i32 = execinfo.backtrace(callstackptr, 128);
+            const strs: ?&?&u8 = execinfo.backtrace_symbols(callstackptr, frames);
+
+            var i:i32 = 0;
+            while (i < frames):(i += 1) {
+                warn("{}\n", strs);
+            }
             return error.TodoSupportMachoDebugInfo;
         },
         builtin.ObjectFormat.wasm => {
