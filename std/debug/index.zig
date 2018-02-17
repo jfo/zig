@@ -9,6 +9,7 @@ const ArrayList = std.ArrayList;
 const builtin = @import("builtin");
 
 const execinfo = @cImport(@cInclude("execinfo.h"));
+const printf = @cImport(@cInclude("stdio.h")).printf;
 
 pub const FailingAllocator = @import("failing_allocator.zig").FailingAllocator;
 
@@ -263,7 +264,7 @@ pub fn openSelfDebugInfo(allocator: &mem.Allocator) !&ElfStackTrace {
 
             var i:i32 = 0;
             while (i < frames):(i += 1) {
-                warn("{}\n", (??strs)[usize(i)]);
+                _ = printf(c"%s\n", ??(??strs)[usize(i)]);
             }
             return error.TodoSupportMachoDebugInfo;
         },
