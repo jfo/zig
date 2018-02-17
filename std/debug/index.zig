@@ -263,7 +263,7 @@ pub fn openSelfDebugInfo(allocator: &mem.Allocator) !&ElfStackTrace {
 
             var i:i32 = 0;
             while (i < frames):(i += 1) {
-                warn("{}\n", strs);
+                warn("{}\n", (??strs)[usize(i)]);
             }
             return error.TodoSupportMachoDebugInfo;
         },
