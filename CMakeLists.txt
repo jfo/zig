@@ -707,6 +707,7 @@ target_link_libraries(zig LINK_PUBLIC
     ${CLANG_LIBRARIES}
     ${LLD_LIBRARIES}
     ${LLVM_LIBRARIES}
+    xml2
     ${CMAKE_THREAD_LIBS_INIT}
 )
 if(ZIG_DIA_GUIDS_LIB)
