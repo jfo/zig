@@ -385,6 +385,7 @@ target_link_libraries(zig_cpp LINK_PUBLIC
     ${CLANG_LIBRARIES}
     ${LLD_LIBRARIES}
     ${LLVM_LIBRARIES}
+    "-Wl,/nix/store/l4g06iapwgpnq89vidajgq7qy89mlski-llvm-10.0.0/lib/LLVMPolly.so"
 )
 
 add_library(opt_c_util STATIC ${OPTIMIZED_C_SOURCES})
