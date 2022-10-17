@@ -73,6 +73,7 @@ pub const Tag = enum {
     ptr_to_int,
     rem,
     return_address,
+    new_intrinsic,
     select,
     set_align_stack,
     set_cold,
@@ -146,6 +147,13 @@ param_count: ?u8,
 pub const list = list: {
     @setEvalBranchQuota(3000);
     break :list std.ComptimeStringMap(@This(), .{
+        .{
+            "@newIntrinsic",
+            .{
+                .tag = .new_intrinsic,
+                .param_count = 0,
+            },
+        },
         .{
             "@addWithOverflow",
             .{

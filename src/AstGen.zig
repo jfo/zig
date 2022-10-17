@@ -7401,6 +7401,10 @@ fn bitCast(
     return rvalue(gz, rl, result, node);
 }
 
+fn newIntrinsic() Zir.Inst.Ref {
+    return Zir.Inst.Ref.none;
+}
+
 fn typeOf(
     gz: *GenZir,
     scope: *Scope,
@@ -7545,6 +7549,7 @@ fn builtinCall(
 
         // zig fmt: off
         .as         => return as(       gz, scope, rl, node, params[0], params[1]),
+        .new_intrinsic       => return newIntrinsic(),
         .bit_cast   => return bitCast(  gz, scope, rl, node, params[0], params[1]),
         .TypeOf     => return typeOf(   gz, scope, rl, node, params),
         .union_init => return unionInit(gz, scope, rl, node, params),
