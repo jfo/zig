@@ -45,6 +45,7 @@ pub fn floatFromUnsigned(comptime T: type, comptime MantissaT: type, v: Mantissa
         f16 => @as(f16, @bitCast(@as(u16, @truncate(v)))),
         f32 => @as(f32, @bitCast(@as(u32, @truncate(v)))),
         f64 => @as(f64, @bitCast(@as(u64, @truncate(v)))),
+        f80 => @as(f80, @bitCast(@as(u80, @truncate(v)))),
         f128 => @as(f128, @bitCast(v)),
         else => unreachable,
     };
@@ -85,7 +86,7 @@ pub fn isDigit(c: u8, comptime base: u8) bool {
 pub fn mantissaType(comptime T: type) type {
     return switch (T) {
         f16, f32, f64 => u64,
-        f128 => u128,
+        f80, f128 => u128,
         else => unreachable,
     };
 }
